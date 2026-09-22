@@ -1,6 +1,8 @@
-# Fisiospot
+# Fisiospot.pt
 
 Sistema de gestão para clínica de fisioterapia.
+
+Versão beta.
 
 ## Estrutura
 
