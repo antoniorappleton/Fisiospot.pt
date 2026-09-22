@@ -1,0 +1,203 @@
+:root {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: #f8f8f2;
+  background: #36413f;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+.app-shell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 3rem clamp(1.5rem, 7vw, 7rem) 2rem;
+  background:
+    linear-gradient(120deg, rgba(34, 46, 44, 0.97), rgba(73, 88, 84, 0.9)),
+    url("/design/cores.png") center / cover;
+}
+
+.app-shell::after {
+  position: absolute;
+  right: -9rem;
+  bottom: -12rem;
+  width: 34rem;
+  height: 34rem;
+  border: 1px solid rgba(166, 239, 211, 0.35);
+  border-radius: 50%;
+  content: "";
+  box-shadow:
+    0 0 0 5rem rgba(166, 239, 211, 0.04),
+    0 0 0 10rem rgba(166, 239, 211, 0.03);
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: #a6efd3;
+  font: 700 0.72rem/1.2 sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.brand-lockup,
+.welcome-panel,
+.status-line {
+  position: relative;
+  z-index: 1;
+}
+
+.brand-lockup {
+  display: grid;
+  width: fit-content;
+  grid-template-columns: 2.2rem auto;
+  grid-template-rows: auto auto;
+  column-gap: 0.75rem;
+  align-items: center;
+}
+
+.brand-mark {
+  position: relative;
+  display: block;
+  width: 2.2rem;
+  height: 2.2rem;
+  grid-row: span 2;
+  border: 2px solid #f8f8f2;
+  border-radius: 50%;
+}
+
+.brand-mark::before,
+.brand-mark::after,
+.brand-mark span {
+  position: absolute;
+  display: block;
+  background: #f8f8f2;
+  content: "";
+}
+
+.brand-mark::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+.brand-mark::after {
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+}
+.brand-mark span:nth-child(1) {
+  top: 0.3rem;
+  left: 0.3rem;
+  width: 1.45rem;
+  height: 2px;
+  transform: rotate(28deg);
+  transform-origin: left;
+}
+.brand-mark span:nth-child(2) {
+  bottom: 0.3rem;
+  left: 0.95rem;
+  width: 0.8rem;
+  height: 2px;
+  transform: rotate(50deg);
+  transform-origin: left;
+}
+.brand-mark span:nth-child(3) {
+  bottom: 0.3rem;
+  right: 0.95rem;
+  width: 0.8rem;
+  height: 2px;
+  transform: rotate(-50deg);
+  transform-origin: right;
+}
+
+.brand-name {
+  font-size: 1.65rem;
+  letter-spacing: -0.06em;
+}
+.brand-subtitle {
+  color: #a6efd3;
+  font-size: 0.55rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.welcome-panel {
+  max-width: 760px;
+  padding: 8rem 0 7rem;
+}
+
+h1 {
+  max-width: 700px;
+  margin: 0;
+  color: #f8f8f2;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.2rem, 8vw, 7.6rem);
+  line-height: 0.92;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.intro {
+  max-width: 520px;
+  margin: 2rem 0 0;
+  color: rgba(248, 248, 242, 0.72);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.primary-action {
+  display: inline-flex;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding: 0.95rem 1.15rem 0.95rem 1.35rem;
+  border: 0;
+  border-radius: 0;
+  color: #263331;
+  background: #a6efd3;
+  cursor: pointer;
+  font: 700 0.75rem/1 sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.primary-action span {
+  font-size: 1.1rem;
+}
+.status-line {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  color: rgba(248, 248, 242, 0.62);
+  font-size: 0.75rem;
+}
+.status-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #a6efd3;
+}
+
+@media (max-width: 600px) {
+  .app-shell {
+    padding-top: 2rem;
+  }
+  .welcome-panel {
+    padding: 7rem 0 6rem;
+  }
+  .app-shell::after {
+    right: -18rem;
+  }
+}

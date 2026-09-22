@@ -1,0 +1,10 @@
+project_id = "fisiospot"
+
+[api]
+enabled = true
+
+[db]
+major_version = 15
+
+[functions]
+verify_jwt = true
