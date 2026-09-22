@@ -51,7 +51,9 @@ body {
 }
 
 .brand-lockup,
-.welcome-panel,
+.auth-panel,
+.brand-bar,
+.dashboard,
 .status-line {
   position: relative;
   z-index: 1;
@@ -64,6 +66,32 @@ body {
   grid-template-rows: auto auto;
   column-gap: 0.75rem;
   align-items: center;
+}
+
+.brand-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.sign-out-action,
+.dashboard-exit {
+  border: 1px solid rgba(248, 248, 242, 0.25);
+  color: rgba(248, 248, 242, 0.8);
+  background: transparent;
+  cursor: pointer;
+  font: 700 0.7rem/1 sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sign-out-action {
+  padding: 0.7rem 1rem;
+}
+.sign-out-action:hover,
+.dashboard-exit:hover {
+  border-color: #a6efd3;
+  color: #a6efd3;
 }
 
 .brand-mark {
@@ -133,9 +161,13 @@ body {
   text-transform: uppercase;
 }
 
-.welcome-panel {
-  max-width: 760px;
-  padding: 8rem 0 7rem;
+.auth-panel {
+  display: grid;
+  max-width: 1120px;
+  grid-template-columns: minmax(280px, 1fr) minmax(320px, 430px);
+  gap: clamp(3rem, 9vw, 10rem);
+  align-items: center;
+  padding: 5rem 0;
 }
 
 h1 {
@@ -176,6 +208,215 @@ h1 {
 .primary-action span {
   font-size: 1.1rem;
 }
+
+.auth-card {
+  padding: 1.6rem;
+  border: 1px solid rgba(248, 248, 242, 0.16);
+  background: rgba(28, 39, 37, 0.72);
+  box-shadow: 0 1.5rem 4rem rgba(13, 22, 21, 0.22);
+  backdrop-filter: blur(0.8rem);
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 1.4rem;
+  margin-bottom: 1.6rem;
+  border-bottom: 1px solid rgba(248, 248, 242, 0.16);
+}
+
+.tab,
+.forgot-action {
+  border: 0;
+  color: rgba(248, 248, 242, 0.58);
+  background: transparent;
+  cursor: pointer;
+  font: 700 0.72rem/1.2 sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tab {
+  padding: 0 0 0.9rem;
+}
+.tab.is-active {
+  color: #a6efd3;
+  border-bottom: 2px solid #a6efd3;
+}
+
+.auth-card form {
+  display: grid;
+  gap: 1rem;
+}
+.auth-card label,
+.auth-card legend {
+  color: rgba(248, 248, 242, 0.72);
+  font: 0.75rem/1.3 sans-serif;
+}
+.auth-card label {
+  display: grid;
+  gap: 0.45rem;
+}
+.auth-card input {
+  width: 100%;
+  padding: 0.82rem 0.85rem;
+  border: 1px solid rgba(248, 248, 242, 0.2);
+  border-radius: 0;
+  outline: none;
+  color: #f8f8f2;
+  background: rgba(248, 248, 242, 0.07);
+  font: 0.95rem/1.2 sans-serif;
+}
+.auth-card input:focus {
+  border-color: #a6efd3;
+  box-shadow: 0 0 0 2px rgba(166, 239, 211, 0.16);
+}
+.auth-card fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.profile-options {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+}
+.profile-option {
+  display: grid;
+  position: relative;
+  gap: 0.2rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgba(248, 248, 242, 0.14);
+  color: #f8f8f2;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+.profile-option.is-selected {
+  border-color: #a6efd3;
+  background: rgba(166, 239, 211, 0.1);
+}
+.profile-option-title {
+  font: 700 0.75rem/1.2 sans-serif;
+}
+.profile-option-description {
+  color: rgba(248, 248, 242, 0.58);
+  font: 0.72rem/1.3 sans-serif;
+}
+.profile-option-note {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.8rem;
+  color: #a6efd3;
+  font: 0.6rem/1.2 sans-serif;
+  text-transform: uppercase;
+}
+.forgot-action {
+  justify-self: start;
+  padding: 0;
+  font-size: 0.62rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.forgot-action:hover {
+  color: #a6efd3;
+}
+.form-message {
+  margin: 0;
+  color: #a6efd3;
+  font: 0.75rem/1.4 sans-serif;
+}
+.auth-submit {
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.4rem;
+}
+.auth-submit:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.dashboard-shell {
+  padding-bottom: 2rem;
+}
+.dashboard {
+  width: min(100%, 1120px);
+  padding: clamp(4rem, 9vh, 7rem) 0 clamp(4rem, 10vh, 8rem);
+}
+.dashboard-heading {
+  max-width: 720px;
+}
+.dashboard-heading h1 {
+  font-size: clamp(3rem, 7vw, 6.7rem);
+}
+.dashboard-nav {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(248, 248, 242, 0.16);
+}
+.dashboard-nav-item {
+  flex: 0 0 auto;
+  padding: 0 0 0.85rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: rgba(248, 248, 242, 0.55);
+  background: transparent;
+  cursor: pointer;
+  font: 700 0.72rem/1.2 sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.dashboard-nav-item.is-active,
+.dashboard-nav-item:hover {
+  border-color: #a6efd3;
+  color: #a6efd3;
+}
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+.dashboard-card {
+  display: grid;
+  min-height: 10.5rem;
+  align-content: space-between;
+  padding: 1.2rem;
+  border: 1px solid rgba(248, 248, 242, 0.15);
+  background: rgba(28, 39, 37, 0.58);
+}
+.dashboard-card strong {
+  color: #a6efd3;
+  font:
+    400 clamp(2rem, 4vw, 3.4rem)/1 Georgia,
+    "Times New Roman",
+    serif;
+}
+.dashboard-card > span:last-child {
+  color: rgba(248, 248, 242, 0.72);
+  font-size: 0.78rem;
+}
+.card-kicker {
+  color: rgba(248, 248, 242, 0.45);
+  font: 700 0.62rem/1 sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.dashboard-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.3rem;
+  color: rgba(248, 248, 242, 0.48);
+  font-size: 0.75rem;
+}
+.dashboard-exit {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.62rem;
+}
 .status-line {
   display: flex;
   gap: 0.65rem;
@@ -194,8 +435,33 @@ h1 {
   .app-shell {
     padding-top: 2rem;
   }
-  .welcome-panel {
-    padding: 7rem 0 6rem;
+  .auth-panel {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 5rem 0;
+  }
+  h1 {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+  .auth-card {
+    padding: 1.2rem;
+  }
+  .brand-bar {
+    align-items: center;
+  }
+  .dashboard {
+    padding-top: 4rem;
+  }
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dashboard-card {
+    min-height: 8.5rem;
+    padding: 0.9rem;
+  }
+  .dashboard-footer {
+    align-items: flex-start;
+    flex-direction: column;
   }
   .app-shell::after {
     right: -18rem;
