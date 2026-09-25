@@ -112,6 +112,15 @@ function AuthPanel({ onAuthenticated }: { onAuthenticated: (user: SessionUser) =
       return;
     }
     setIsLoading(true);
+
+    const demoUser = resolveDemoUser(email, password);
+    if (demoUser) {
+      setIsLoading(false);
+      setMessage('Acesso demo ativado com sucesso.');
+      onAuthenticated(demoUser);
+      return;
+    }
+
     if (!supabase) {
       setMessage('O Supabase ainda não está configurado. Preencha as variáveis do ficheiro .env para ativar o acesso.');
       setIsLoading(false);
@@ -149,6 +158,12 @@ function AuthPanel({ onAuthenticated }: { onAuthenticated: (user: SessionUser) =
           <button className={mode === 'login' ? 'tab is-active' : 'tab'} type="button" onClick={() => { setMode('login'); setMessage(''); }} role="tab" aria-selected={mode === 'login'}>Entrar</button>
           <button className={mode === 'register' ? 'tab is-active' : 'tab'} type="button" onClick={() => { setMode('register'); setMessage(''); }} role="tab" aria-selected={mode === 'register'}>Registar</button>
         </div>
+        <div className="demo-credentials" aria-label="Contas de demonstração">
+          <strong>Demo</strong>
+          <span>filipe.db@fisiospot.pt / Demo123! · ADMIN</span>
+          <span>ana.martins@fisiospot.pt / Demo123! · Fisioterapeuta</span>
+          <span>joao.pereira@fisiospot.pt / Demo123! · Paciente</span>
+        </div>
         <form onSubmit={handleSubmit}>
           {isRegistering && <label>Nome completo<input required value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" /></label>}
           {isRegistering && <fieldset><legend>Perfil</legend><div className="profile-options">{profileOptions.map((option) => <button className={profile === option.value ? 'profile-option is-selected' : 'profile-option'} type="button" key={option.value} onClick={() => setProfile(option.value)}><span className="profile-option-title">{option.label}</span><span className="profile-option-description">{option.description}</span>{option.restricted && <span className="profile-option-note">Por convite</span>}</button>)}</div></fieldset>}
@@ -178,12 +193,50 @@ function Dashboard({ user, onSignOut }: { user: SessionUser; onSignOut: () => vo
       <div className="dashboard-grid">
         {content.cards.map((card) => <article className="dashboard-card" key={card.label}><span className="card-kicker">{card.kicker}</span><strong>{card.value}</strong><span>{card.label}</span></article>)}
       </div>
+      <div className="demo-records" aria-label="Registos de demonstração">
+        <h2>{user.role === 'CLIENT' ? 'O meu percurso' : user.role === 'THERAPIST' ? 'Pacientes em acompanhamento' : 'Clínica em ação'}</h2>
+        {demoRecordSets[user.role].map((record) => (
+          <article className="demo-record" key={record.title}>
+            <div>
+              <strong>{record.title}</strong>
+              <span>{record.detail}</span>
+            </div>
+            <small>{record.meta}</small>
+          </article>
+        ))}
+      </div>
       <div className="dashboard-footer"><span>{user.email}</span><button className="dashboard-exit" type="button" onClick={async () => { if (supabase) await supabase.auth.signOut(); onSignOut(); }}>Terminar sessão</button></div>
     </section>
   );
 }
 
 type DashboardData = { intro: string; navigation: string[]; cards: Array<{ kicker: string; value: string; label: string }> };
+
+const demoAccounts = {
+  'filipe.db@fisiospot.pt': { id: 'demo-admin', email: 'filipe.db@fisiospot.pt', name: 'Filipe D. Borges', role: 'ADMIN' as const, password: 'Demo123!' },
+  'ana.martins@fisiospot.pt': { id: 'demo-therapist', email: 'ana.martins@fisiospot.pt', name: 'Ana Martins', role: 'THERAPIST' as const, password: 'Demo123!' },
+  'joao.pereira@fisiospot.pt': { id: 'demo-client', email: 'joao.pereira@fisiospot.pt', name: 'João Pereira', role: 'CLIENT' as const, password: 'Demo123!' },
+  'marta.oliveira@fisiospot.pt': { id: 'demo-client-2', email: 'marta.oliveira@fisiospot.pt', name: 'Marta Oliveira', role: 'CLIENT' as const, password: 'Demo123!' },
+  'rui.santos@fisiospot.pt': { id: 'demo-therapist-2', email: 'rui.santos@fisiospot.pt', name: 'Rui Santos', role: 'THERAPIST' as const, password: 'Demo123!' },
+};
+
+const demoRecordSets: Record<Profile, Array<{ title: string; detail: string; meta: string }>> = {
+  ADMIN: [
+    { title: 'João Pereira', detail: 'Sessão de reabilitação do joelho', meta: 'Próxima consulta · 10:30' },
+    { title: 'Marta Oliveira', detail: 'Avaliação inicial concluída', meta: 'Episódio ativo · 2 sessões' },
+    { title: 'Ana Martins', detail: 'Agenda de hoje em dia', meta: 'Fisioterapeuta responsável' },
+  ],
+  THERAPIST: [
+    { title: 'Marta Oliveira', detail: 'Melhoria progressiva da dor lombar', meta: 'Última sessão · 4 dias atrás' },
+    { title: 'João Pereira', detail: 'Exercícios de força do quadril', meta: 'Próximo ajuste · 10:30' },
+    { title: 'Rui Santos', detail: 'Partilha de caso e revisão de plano', meta: 'Consulta de supervisão' },
+  ],
+  CLIENT: [
+    { title: 'Plano de tratamento', detail: 'Exercícios de mobilidade e força', meta: 'Última revisão · 12/09' },
+    { title: 'Consulta agendada', detail: 'Fisioterapia de joelho', meta: 'Próxima · 24 SET · 10:30' },
+    { title: 'Pagamentos', detail: 'Pack de 6 sessões ativo', meta: '2 sessões restantes' },
+  ],
+};
 
 const dashboardContent: Record<Profile, DashboardData> = {
   ADMIN: {
@@ -202,5 +255,19 @@ const dashboardContent: Record<Profile, DashboardData> = {
     cards: [{ kicker: 'Próxima consulta', value: '24 SET', label: 'Fisioterapia · 10:30' }, { kicker: 'Sessões', value: '04', label: 'sessões realizadas' }, { kicker: 'Pack', value: '06', label: 'sessões disponíveis' }, { kicker: 'Conta', value: '€ 0', label: 'por liquidar' }],
   },
 };
+
+function resolveDemoUser(email: string, password: string): SessionUser | null {
+  const normalizedEmail = email.trim().toLowerCase();
+  const account = demoAccounts[normalizedEmail as keyof typeof demoAccounts];
+
+  if (!account || account.password !== password) return null;
+
+  return {
+    id: account.id,
+    email: account.email,
+    name: account.name,
+    role: account.role,
+  };
+}
 
 export default App;

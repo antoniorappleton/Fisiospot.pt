@@ -227,6 +227,24 @@ h1 {
   border-bottom: 2px solid #2e7d74;
 }
 
+.demo-credentials {
+  display: grid;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px dashed rgba(46, 125, 116, 0.35);
+  border-radius: 0.8rem;
+  background: rgba(46, 125, 116, 0.04);
+  color: #1d5a53;
+  font-size: 0.72rem;
+}
+
+.demo-credentials strong {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .auth-card form {
   display: grid;
   gap: 1rem;
@@ -387,6 +405,54 @@ h1 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.8rem;
   margin-top: 1.2rem;
+}
+
+.demo-records {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.demo-records h2 {
+  margin: 0;
+  color: #1d5a53;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.demo-record {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(31, 42, 45, 0.08);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.demo-record strong,
+.demo-record span,
+.demo-record small {
+  display: block;
+}
+
+.demo-record strong {
+  color: #1f2a2d;
+  font-size: 0.95rem;
+}
+
+.demo-record span {
+  color: rgba(31, 42, 45, 0.68);
+  font-size: 0.76rem;
+}
+
+.demo-record small {
+  color: #1d5a53;
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .dashboard-card {
