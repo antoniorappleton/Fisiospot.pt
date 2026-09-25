@@ -21,3 +21,12 @@ npm run dev
 ```
 
 Configurar as variáveis de `.env.example` num ficheiro `.env` antes de ligar ao Supabase.
+
+## Publicar (GitHub Pages)
+
+GitHub → Settings → Pages → Deploy from a branch → `main` / `(root)`.
+
+```bash
+npm run publish   # compila e copia a app para a raiz do repositório
+git add -A && git commit -m "publish" && git push
+```

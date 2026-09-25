@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "npm run dev --workspace @fisiospot/web",
     "build": "npm run build --workspace @fisiospot/web",
-    "typecheck": "npm run typecheck --workspace @fisiospot/web"
+    "typecheck": "npm run typecheck --workspace @fisiospot/web",
+    "publish": "npm run build && node scripts/publish-root.mjs"
   }
 }
