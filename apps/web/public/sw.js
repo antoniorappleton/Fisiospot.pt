@@ -1,4 +1,4 @@
-const cacheName = "fisiospot-v3";
+const cacheName = "fisiospot-v4";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

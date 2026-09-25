@@ -22,6 +22,19 @@ npm run dev
 
 Configurar as variáveis de `.env.example` num ficheiro `.env` antes de ligar ao Supabase.
 
+## Contas demo
+
+Password: `Demo123!`
+
+| Perfil | Email |
+| --- | --- |
+| Administrador | filipe.db@fisiospot.pt |
+| Administrativo | sofia.costa@fisiospot.pt |
+| Fisioterapeuta | ana.martins@fisiospot.pt |
+| Cliente | joao.pereira@fisiospot.pt |
+
+Os dados demo ficam no browser (localStorage) e são partilhados entre perfis. "Repor dados demo" volta ao estado inicial.
+
 ## Publicar (GitHub Pages)
 
 GitHub → Settings → Pages → Deploy from a branch → `main` / `(root)`.
