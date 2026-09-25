@@ -85,7 +85,7 @@ function BrandHeader({ user, onSignOut }: { user: SessionUser | null; onSignOut:
   return (
     <header className="brand-bar">
       <div className="brand-lockup" aria-label="Fisiospot Fisioterapia">
-        <span className="brand-mark" aria-hidden="true"><span /><span /><span /></span>
+        <img className="brand-mark" src={`${import.meta.env.BASE_URL}design/logo.png`} alt="Fisiospot" />
         <span className="brand-name">fisiospot</span>
         <span className="brand-subtitle">fisioterapia</span>
       </div>
