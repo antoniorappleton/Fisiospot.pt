@@ -122,7 +122,7 @@ function AuthPanel({ onAuthenticated }: { onAuthenticated: (user: SessionUser) =
     }
 
     if (!supabase) {
-      setMessage('O Supabase ainda não está configurado. Preencha as variáveis do ficheiro .env para ativar o acesso.');
+      setMessage('Modo demo ativo: use uma das contas abaixo para testar o fluxo. O Supabase ainda não está configurado.');
       setIsLoading(false);
       return;
     }
@@ -141,7 +141,10 @@ function AuthPanel({ onAuthenticated }: { onAuthenticated: (user: SessionUser) =
 
   async function handlePasswordReset() {
     if (!email) return setMessage('Indique primeiro o seu email para receber um link de recuperação.');
-    if (!supabase) return setMessage('O Supabase ainda não está configurado. Preencha as variáveis do ficheiro .env para ativar a recuperação.');
+    if (!supabase) {
+      setMessage('Modo demo: a recuperação de password fica em espera até o Supabase estar configurado.');
+      return;
+    }
     const { error } = await supabase.auth.resetPasswordForEmail(email);
     setMessage(error?.message ?? 'Enviámos um link de recuperação para o seu email.');
   }
